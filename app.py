@@ -139,10 +139,9 @@ def render_traffic_section():
     elif max(mu_sedikit, mu_sedang, mu_banyak) == mu_banyak:
         label_terkuat = "Macet"
 
-    st.subheader("Hasil Inferensi Fuzzy")
-    st.write(f"- Input jumlah kendaraan: **{jumlah}**")
+    st.subheader("Hasil Fuzzy")
     st.write(f"- Kondisi dominan: **{label_terkuat}**")
-    st.write(f"- Hasil defuzzifikasi (skala 0-100): **{hasil_krisp:.1f}**")
+    st.write(f"- Nilai defuzzifikasi: **{hasil_krisp:.1f}**")
 
     if hasil_krisp < 40:
         st.success("Hasil: Lancar")
@@ -150,14 +149,6 @@ def render_traffic_section():
         st.warning("Hasil: Padat")
     else:
         st.error("Hasil: Macet")
-
-    st.markdown(
-        "### Interpretasi Hasil Lalu Lintas:\n"
-        "- `Lancar`: Jalan probabel bebas hambatan, kecepatan kendaraan stabil, dan antrian minimal.\n"
-        "- `Padat`: Kondisi jalan mulai sesak, kendaraan melaju lambat, dan kemungkinan antrean di persimpangan meningkat.\n"
-        "- `Macet`: Kondisi lalu lintas sangat padat, kecepatan rendah, dan kemungkinan kemacetan panjang tinggi.\n"
-        "- Nilai defuzzifikasi di bawah 40 menunjukkan kondisi lancar kuat, 40-70 menunjukkan padat, dan di atas 70 menunjukkan macet.\n"
-    )
 
     x_input = np.linspace(0, 200, 501)
     input_sedikit = np.array([membership_sedikit(x) for x in x_input])
@@ -190,13 +181,11 @@ def render_traffic_section():
 
     st.markdown(
         "---\n"
-        "### Penjelasan Logika Fuzzy untuk Lalu Lintas:\n"
-        "1. `Sedikit` = kondisi jalan lancar.\n"
-        "2. `Sedang` = kondisi jalan padat.\n"
-        "3. `Banyak` = kondisi jalan macet.\n"
-        "4. Input `Jumlah Kendaraan` difuzzifikasi ke tiga derajat keanggotaan.\n"
-        "5. Aturan fuzzy menggunakan nilai input dominan.\n"
-        "6. Defuzzifikasi centroid menghasilkan nilai krisp akhir.\n"
+        "### Interpretasi Hasil Lalu Lintas:\n"
+        "- `Lancar`: Jalan probabel bebas hambatan, kecepatan kendaraan stabil, dan antrian minimal.\n"
+        "- `Padat`: Kondisi jalan mulai sesak, kendaraan melaju lambat, dan kemungkinan antrean di persimpangan meningkat.\n"
+        "- `Macet`: Kondisi lalu lintas sangat padat, kecepatan rendah, dan kemungkinan kemacetan panjang tinggi.\n"
+        "- Nilai defuzzifikasi di bawah 40 menunjukkan kondisi lancar kuat, 40-70 menunjukkan padat, dan di atas 70 menunjukkan macet.\n"
     )
 
 
@@ -240,10 +229,9 @@ def render_ipk_section():
     elif max(mu_tidak, mu_dipertimbangkan, mu_layak) == mu_layak:
         label_terkuat = "Layak"
 
-    st.subheader("Hasil Inferensi Fuzzy")
-    st.write(f"- Input IPK: **{ipk:.2f}**")
+    st.subheader("Hasil Fuzzy")
     st.write(f"- Kelayakan dominan: **{label_terkuat}**")
-    st.write(f"- Hasil defuzzifikasi (skala 0-100): **{hasil_krisp:.1f}**")
+    st.write(f"- Nilai defuzzifikasi: **{hasil_krisp:.1f}**")
 
     if hasil_krisp < 35:
         st.error("Hasil: Tidak Layak")
@@ -251,14 +239,6 @@ def render_ipk_section():
         st.warning("Hasil: Dipertimbangkan")
     else:
         st.success("Hasil: Layak")
-
-    st.markdown(
-        "### Interpretasi Hasil IPK:\n"
-        "- `Tidak Layak`: IPK terlalu rendah untuk diterima secara aman, perlu peningkatan sebelum masuk pertimbangan.\n"
-        "- `Dipertimbangkan`: IPK berada di kisaran moderat; pelamar layak dievaluasi lebih lanjut dengan faktor lain.\n"
-        "- `Layak`: IPK cukup baik dan menunjukkan potensi tinggi untuk diterima atau melanjutkan ke tahap selanjutnya.\n"
-        "- Nilai defuzzifikasi di bawah 35 menunjukkan hasil tidak layak kuat, 35-65 menunjukkan status dipertimbangkan, dan di atas 65 menunjukkan layak.\n"
-    )
 
     x_input = np.linspace(0, 4, 501)
     input_tidak = np.array([membership_rendah(x) for x in x_input])
@@ -291,13 +271,11 @@ def render_ipk_section():
 
     st.markdown(
         "---\n"
-        "### Penjelasan Logika Fuzzy untuk IPK:\n"
-        "1. `Tidak Layak` = IPK rendah.\n"
-        "2. `Dipertimbangkan` = IPK sedang.\n"
-        "3. `Layak` = IPK tinggi.\n"
-        "4. Input IPK difuzzifikasi ke tiga derajat keanggotaan.\n"
-        "5. Aturan fuzzy dievaluasi dan hasilnya digabungkan menjadi output fuzzy.\n"
-        "6. Defuzzifikasi centroid menghasilkan nilai krisp akhir.\n"
+        "### Interpretasi Hasil IPK:\n"
+        "- `Tidak Layak`: IPK terlalu rendah untuk diterima secara aman, perlu peningkatan sebelum masuk pertimbangan.\n"
+        "- `Dipertimbangkan`: IPK berada di kisaran moderat; pelamar layak dievaluasi lebih lanjut dengan faktor lain.\n"
+        "- `Layak`: IPK cukup baik dan menunjukkan potensi tinggi untuk diterima atau melanjutkan ke tahap selanjutnya.\n"
+        "- Nilai defuzzifikasi di bawah 35 menunjukkan hasil tidak layak kuat, 35-65 menunjukkan status dipertimbangkan, dan di atas 65 menunjukkan layak.\n"
     )
 
 

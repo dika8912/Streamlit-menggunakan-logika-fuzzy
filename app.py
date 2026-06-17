@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(page_title="Fuzzy Logic", layout="wide")
 
@@ -140,8 +141,18 @@ def render_traffic_section():
         label_terkuat = "Macet"
 
     st.subheader("Hasil Fuzzy")
-    st.write(f"- Kondisi dominan: **{label_terkuat}**")
-    st.write(f"- Nilai defuzzifikasi: **{hasil_krisp:.1f}**")
+    
+    # Create results table
+    hasil_data = {
+        "Kategori": ["Lancar", "Padat", "Macet"],
+        "Derajat Keanggotaan Input": [f"{mu_sedikit:.2f}", f"{mu_sedang:.2f}", f"{mu_banyak:.2f}"],
+        "Rule": [f"{rule_lancar:.2f}", f"{rule_padat:.2f}", f"{rule_macet:.2f}"]
+    }
+    df_hasil = pd.DataFrame(hasil_data)
+    st.table(df_hasil)
+    
+    st.write(f"- **Kondisi dominan**: {label_terkuat}")
+    st.write(f"- **Nilai defuzzifikasi**: {hasil_krisp:.1f}")
 
     if hasil_krisp < 40:
         st.success("Hasil: Lancar")
@@ -230,8 +241,18 @@ def render_ipk_section():
         label_terkuat = "Layak"
 
     st.subheader("Hasil Fuzzy")
-    st.write(f"- Kelayakan dominan: **{label_terkuat}**")
-    st.write(f"- Nilai defuzzifikasi: **{hasil_krisp:.1f}**")
+    
+    # Create results table
+    hasil_data = {
+        "Kategori": ["Tidak Layak", "Dipertimbangkan", "Layak"],
+        "Derajat Keanggotaan Input": [f"{mu_tidak:.2f}", f"{mu_dipertimbangkan:.2f}", f"{mu_layak:.2f}"],
+        "Rule": [f"{rule_tidak:.2f}", f"{rule_dipertimbangkan:.2f}", f"{rule_layak:.2f}"]
+    }
+    df_hasil = pd.DataFrame(hasil_data)
+    st.table(df_hasil)
+    
+    st.write(f"- **Kelayakan dominan**: {label_terkuat}")
+    st.write(f"- **Nilai defuzzifikasi**: {hasil_krisp:.1f}")
 
     if hasil_krisp < 35:
         st.error("Hasil: Tidak Layak")

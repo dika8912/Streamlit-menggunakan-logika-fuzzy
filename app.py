@@ -151,6 +151,14 @@ def render_traffic_section():
     else:
         st.error("Hasil: Macet")
 
+    st.markdown(
+        "### Interpretasi Hasil Lalu Lintas:\n"
+        "- `Lancar`: Jalan probabel bebas hambatan, kecepatan kendaraan stabil, dan antrian minimal.\n"
+        "- `Padat`: Kondisi jalan mulai sesak, kendaraan melaju lambat, dan kemungkinan antrean di persimpangan meningkat.\n"
+        "- `Macet`: Kondisi lalu lintas sangat padat, kecepatan rendah, dan kemungkinan kemacetan panjang tinggi.\n"
+        "- Nilai defuzzifikasi di bawah 40 menunjukkan kondisi lancar kuat, 40-70 menunjukkan padat, dan di atas 70 menunjukkan macet.\n"
+    )
+
     x_input = np.linspace(0, 200, 501)
     input_sedikit = np.array([membership_sedikit(x) for x in x_input])
     input_sedang = np.array([membership_sedang(x) for x in x_input])
@@ -243,6 +251,14 @@ def render_ipk_section():
         st.warning("Hasil: Dipertimbangkan")
     else:
         st.success("Hasil: Layak")
+
+    st.markdown(
+        "### Interpretasi Hasil IPK:\n"
+        "- `Tidak Layak`: IPK terlalu rendah untuk diterima secara aman, perlu peningkatan sebelum masuk pertimbangan.\n"
+        "- `Dipertimbangkan`: IPK berada di kisaran moderat; pelamar layak dievaluasi lebih lanjut dengan faktor lain.\n"
+        "- `Layak`: IPK cukup baik dan menunjukkan potensi tinggi untuk diterima atau melanjutkan ke tahap selanjutnya.\n"
+        "- Nilai defuzzifikasi di bawah 35 menunjukkan hasil tidak layak kuat, 35-65 menunjukkan status dipertimbangkan, dan di atas 65 menunjukkan layak.\n"
+    )
 
     x_input = np.linspace(0, 4, 501)
     input_tidak = np.array([membership_rendah(x) for x in x_input])
